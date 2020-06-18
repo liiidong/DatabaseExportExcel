@@ -1,44 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.songlin.mapper.TableColumnMapper">
-
-
-	<resultMap type="cn.songlin.entity.TableColumn" id="result">
-	</resultMap>
-
-	<select id="getTableColumn" resultMap="result">
-		SELECT
-		COLUMN_NAME
-		columnName,
-		COLUMN_TYPE columnType,
-		DATA_TYPE dataType,
-		CHARACTER_MAXIMUM_LENGTH characterMaximumLength,
-		IS_NULLABLE
-		isNullable,
-		COLUMN_DEFAULT columnDefault,
-		COLUMN_COMMENT
-		columnComment
-		FROM
-		INFORMATION_SCHEMA.COLUMNS
-		WHERE
-		table_schema = #{dataSourceName}
-		AND table_name = #{tableName}
-	</select>
-	<select id="getAllTableColumn" resultMap="result">
-		SELECT
-		COLUMN_NAME
-		columnName,
-		COLUMN_TYPE columnType,
-		DATA_TYPE dataType,
-		CHARACTER_MAXIMUM_LENGTH characterMaximumLength,
-		IS_NULLABLE isNullable,
-		COLUMN_DEFAULT columnDefault,
-		COLUMN_COMMENT columnComment,
-		TABLE_NAME tableName
-		FROM
-		INFORMATION_SCHEMA.COLUMNS
-		WHERE
-		table_schema =
-		#{dataSourceName}
-	</select>
+    <resultMap type="cn.songlin.entity.TableColumn" id="result">
+        <result column="COLUMN_NAME" property="columnName"/>
+        <result column="COLUMN_TYPE" property="columnType"/>
+        <result column="DATA_TYPE" property="dataType"/>
+        <result column="CHARACTER_MAXIMUM_LENGTH" property="characterMaximumLength"/>
+        <result column="IS_NULLABLE" property="isNullable"/>
+        <result column="COLUMN_DEFAULT" property="columnDefault"/>
+        <result column="COLUMN_COMMENT" property="columnComment"/>
+        <result column="TABLE_NAME" property="tableName"/>
+    </resultMap>
+    <select id="getTableColumn" resultMap="result">
+        SELECT COLUMN_NAME,
+               COLUMN_TYPE,
+               DATA_TYPE,
+               CHARACTER_MAXIMUM_LENGTH,
+               IS_NULLABLE,
+               COLUMN_DEFAULT,
+               COLUMN_COMMENT
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_schema = #{dataSourceName}
+          AND table_name = #{tableName}
+    </select>
+    <select id="getAllTableColumn" resultMap="result">
+        SELECT COLUMN_NAME,
+               COLUMN_TYPE,
+               DATA_TYPE,
+               CHARACTER_MAXIMUM_LENGTH,
+               IS_NULLABLE,
+               COLUMN_DEFAULT,
+               COLUMN_COMMENT,
+               TABLE_NAME
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_schema =
+              #{dataSourceName}
+    </select>
 </mapper>
